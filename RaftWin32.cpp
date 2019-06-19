@@ -168,11 +168,12 @@ static void _InitConPTYStartupInfo(void)
 			startup_info_ex.lpAttributeList,
 			1,
 			0,
-			(PSIZE_T)& size
+			(PSIZE_T) &size
 	)) _ExitError(L"Unable to initialize STARTUPINFOEX attribute list");
 
 	// Set thread attr list's ConPTY to the specified ConPTY
-	if (!UpdateProcThreadAttribute(
+	if (startup_info_ex.lpAttributeList != 0 &&
+		!UpdateProcThreadAttribute(
 		startup_info_ex.lpAttributeList,
 		0,
 		PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE,
