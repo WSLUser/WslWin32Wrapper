@@ -154,7 +154,7 @@ static void _InitConPTYAndPipes(void)
 static void _InitConPTYStartupInfo(void)
 {
 	DEBUG_PRINT(L"Initializing ConPTY STARTUPINFO");
-	SIZE_T size;
+	SIZE_T size = 0;
 
 	startup_info_ex.StartupInfo.cb = sizeof(STARTUPINFOEX);
 
@@ -169,7 +169,7 @@ static void _InitConPTYStartupInfo(void)
 			1,
 			0,
 			(PSIZE_T)& size
-		)) _ExitError(L"Unable to initialize STARTUPINFOEX attribute list");
+	)) _ExitError(L"Unable to initialize STARTUPINFOEX attribute list");
 
 	// Set thread attr list's ConPTY to the specified ConPTY
 	if (!UpdateProcThreadAttribute(
@@ -282,7 +282,7 @@ static void _ExitError(const WCHAR* errorstr)
 			NULL
 		);
 
-		wprintf(L"\n[ERROR] %s: %s\n", errorstr, (LPCTSTR)lp_mesg_buf);
+		wprintf(L"\n[ERROR] %s: %s\n", errorstr, (LPWSTR) lp_mesg_buf);
 		LocalFree(lp_mesg_buf);
 	}
 	else {
