@@ -137,7 +137,7 @@ static void _InitConPTYAndPipes(void)
 		conpty_stdout,
 		0,
 		&wsl_conpty
-	)) _ExitError(L"Unable to create ConPTY");
+	) != S_OK) _ExitError(L"Unable to create ConPTY");
 	conpty_open = TRUE;
 
 	// Can close handles to PTY end of pipes here as handles dupe'd into
